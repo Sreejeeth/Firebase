@@ -48,6 +48,8 @@ public class MainActivitydemo extends AppCompatActivity  {
 
     //our database reference object
     DatabaseReference databaseArtists;
+    DatabaseReference databaseArtists1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +58,7 @@ public class MainActivitydemo extends AppCompatActivity  {
 
         //getting the reference of artists node
         databaseArtists = FirebaseDatabase.getInstance().getReference("artists");
-
-        //getting views
+        //databaseArtists1 = FirebaseDatabase.getInstance().getReference("FIR2");        //getting views
         editTextName = (EditText) findViewById(R.id.editTextName);
         spinnerGenre = (Spinner) findViewById(R.id.spinnerGenres);
         listViewArtists = (ListView) findViewById(R.id.listViewArtists);

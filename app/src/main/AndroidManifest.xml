@@ -16,10 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivitydemo"
+        <activity android:name=".MainActivityCanteen"
             android:label="MainActivity">
             </activity>
-<activity android:name=".InterfaceOwnerdemo"/>
+<activity android:name=".InterfaceOwnerCanteen"/>
 
     </application>
 

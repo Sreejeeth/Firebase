@@ -19,6 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import static com.example.sreejeethramprasad.firebase.R.id.listViewArtists;
+import static com.example.sreejeethramprasad.firebase.R.id.listViewArtists1;
 
 /**
  * Created by Vishvajith Ramprasad on 05-05-2017.
@@ -53,7 +54,7 @@ public class MainActivityCanteen extends AppCompatActivity {
         //getting views
         editTextName = (EditText) findViewById(R.id.editTextName);
         spinnerGenre = (Spinner) findViewById(R.id.spinnerGenres);
-        listViewArtists3 = (ListView) findViewById(listViewArtists);
+        listViewArtists3 = (ListView) findViewById(listViewArtists1);
 
         buttonAddArtist = (Button) findViewById(R.id.buttonAddArtist);
 
@@ -75,7 +76,7 @@ public class MainActivityCanteen extends AppCompatActivity {
         });
     }
 
-    @Override
+  @Override
     protected void onStart() {
         super.onStart();
         //attaching value event listener
@@ -85,15 +86,26 @@ public class MainActivityCanteen extends AppCompatActivity {
 
                 //clearing the previous artist list
                 artists1.clear();
-
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    //getting artist
+                    Artist artist = postSnapshot.getValue(Artist.class);
+                    //adding artist to the list
+                    artists1.add(artist);
+                }
 
             }
+
+
+
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
         });
+        ArtistListCanteen artistAdapter = new ArtistListCanteen(MainActivityCanteen.this, artists1);
+        //attaching adapter to the listview
+        listViewArtists3.setAdapter(artistAdapter);
     }
 
     /*
