@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.util.List;
@@ -34,8 +35,9 @@ public class ArtistList extends ArrayAdapter<Artist> {
         LayoutInflater inflater = context.getLayoutInflater();
         View listViewItem = inflater.inflate(R.layout.list_layout, null, true);
 
-        TextView textViewName = (TextView) listViewItem.findViewById(R.id.textViewName);
+        CheckBox textViewName = (CheckBox) listViewItem.findViewById(R.id.textViewName);
         TextView textViewGenre = (TextView) listViewItem.findViewById(R.id.textViewGenre);
+
 
         Artist artist = artists.get(position);
         textViewName.setText(artist.getArtistName());

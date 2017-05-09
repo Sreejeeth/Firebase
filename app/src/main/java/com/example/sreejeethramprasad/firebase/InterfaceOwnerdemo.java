@@ -20,80 +20,41 @@ import java.util.List;
  * Created by Vishvajith Ramprasad on 04-05-2017.
  */
 
-public class InterfaceOwnerdemo extends MainActivitydemo {
+public class InterfaceOwnerdemo extends MainActivitydemo  {
     ArrayList<Artist> questions;
-    DatabaseReference databaseArtists;
-   ListView listViewArtists1;
+    //DatabaseReference databaseArtists;
+    ListView listViewArtists1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.owner_interface);
-       listViewArtists1 = (ListView) findViewById(R.id.listViewArtists);
+        listViewArtists4 = (ListView) findViewById(R.id.listViewArtists);
+    }
 
-        databaseArtists = FirebaseDatabase.getInstance().getReference("artists");
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //attaching value event listener
         databaseArtists.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 //clearing the previous artist list
-                artists.clear();
+                artists1.clear();
 
                 //iterating through all the nodes
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     //getting artist
                     Artist artist = postSnapshot.getValue(Artist.class);
                     //adding artist to the list
-                    artists.add(artist);
+                    artists1.add(artist);
                 }
-
-                //        //   Intent intent = new Intent(MainActivity.this, InterfaceOwner.class);
-                //        // Bundle b = new Bundle();
-                //      //    b.putSerializable("artists",artists);
-                //      //    intent.putExtras(b);
-                // intent.putStringArrayListExtra("key", (ArrayList) artists);
-                //  intent.putExtra("QuestionListExtra", artists);
-                //intent.putParcelableArrayListExtra("key", ArrayList<T extends Parcelable> list);
-
-                //  intent.putStringArrayListExtra("stock_list", artists);
-                //    b.putSerializable("key", (Serializable) artists);
-                // intent.putExtra("BUNDLE", b);
-                //      //    startActivity(intent);
-                //ArrayList<String> myList = new ArrayList<String>();
-                // Intent intent = new Intent(MainActivity.this, InterfaceOwner.class);
-                //intent.putStringArrayListExtra("key",(ArrayList)artists);
-                //startActivity(intent);
-                //intent.putExtra("mylist", myList);
-                //creating adapter
-                //   ArtistList artistAdapter = new ArtistList(MainActivity.this, artists);
-                //attaching adapter to the listview
-                // listViewArtists.setAdapter(artistAdapter);
-                //   String result = (String) listViewArtists.getItemAtPosition(position).toString();
-                //  intent.putExtra("get",result);
-                //  startActivity(intent);
-
-              /*  listViewArtists.setOnItemClickListener(new AdapterView.OnItemClickListener()
-                {
-                    public void onItemClick(AdapterView<?> parent, View v, int position, long id)
-                    {
-                        Intent intent = new Intent(MainActivity.this,InterfaceOwner.class);
-
-                            // intent.putExtra("get", aList.get(position));
-
-
-                            String result = (String) listViewArtists.getItemAtPosition(position).toString();
-                        Bundle b = new Bundle();
-
-                            intent.putExtra("get",result);
-                            startActivity(intent);
-                     }
-                });*/
 //creating adapter
-                ArtistList artistAdapter = new ArtistList(InterfaceOwnerdemo.this, artists);
+                ArtistList artistAdapter = new ArtistList(InterfaceOwnerdemo.this, artists1);
                 //attaching adapter to the listview
-                listViewArtists1.setAdapter(artistAdapter);
+                listViewArtists4.setAdapter(artistAdapter);
             }
 
             @Override

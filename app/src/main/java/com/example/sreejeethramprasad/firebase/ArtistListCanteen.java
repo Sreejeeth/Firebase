@@ -30,7 +30,7 @@ public class ArtistListCanteen extends ArrayAdapter<Artist> {
         LayoutInflater inflater = context.getLayoutInflater();
         View listViewItem = inflater.inflate(R.layout.list_layout_canteen, null, true);
 
-        CheckBox textViewName = (CheckBox) listViewItem.findViewById(R.id.textViewName1);
+        TextView textViewName = (TextView) listViewItem.findViewById(R.id.textViewName1);
         TextView textViewGenre = (TextView) listViewItem.findViewById(R.id.textViewGenre);
 
         Artist artist = artists.get(position);

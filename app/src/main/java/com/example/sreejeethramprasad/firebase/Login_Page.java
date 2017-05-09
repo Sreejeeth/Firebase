@@ -41,7 +41,7 @@ public class Login_Page extends AppCompatActivity {
                         ed2.getText().toString().equals("student")) {
                     Toast.makeText(getApplicationContext(),
                             "Redirecting...", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(Login_Page.this, MainActivityCanteen.class);        //Create a bundle object
+                    Intent intent = new Intent(Login_Page.this,MainActivityCanteen.class);        //Create a bundle object
                     startActivity(intent);
 
                 }
@@ -49,7 +49,7 @@ public class Login_Page extends AppCompatActivity {
                         ed2.getText().toString().equals("admin")) {
                     Toast.makeText(getApplicationContext(),
                             "Redirecting...", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(Login_Page.this, InterfaceOwnerCanteen.class);        //Create a bundle object
+                    Intent intent = new Intent(Login_Page.this,InterfaceOwnerCanteen.class);        //Create a bundle object
                     startActivity(intent);
 
                 } else {

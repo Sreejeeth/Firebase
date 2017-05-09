@@ -24,15 +24,15 @@ import static com.example.sreejeethramprasad.firebase.R.id.listViewArtists1;
 
 public class InterfaceOwnerCanteen extends MainActivityCanteen {
     ArrayList<Artist> questions;
-    DatabaseReference databaseArtists;
-    ListView listViewArtists2;
+   // DatabaseReference databaseArtists;
+   // ListView listViewArtists2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.owner_interface_canteen);
-        listViewArtists2= (ListView) findViewById(listViewArtists1);
+       listViewArtists3= (ListView) findViewById(listViewArtists1);
 
         databaseArtists = FirebaseDatabase.getInstance().getReference("artists");
 
@@ -52,9 +52,6 @@ public class InterfaceOwnerCanteen extends MainActivityCanteen {
                 }
 
 
-                ArtistListCanteen artistAdapter = new ArtistListCanteen(InterfaceOwnerCanteen.this, artists1);
-                //attaching adapter to the listview
-                listViewArtists2.setAdapter(artistAdapter);
             }
 
             @Override
@@ -62,5 +59,9 @@ public class InterfaceOwnerCanteen extends MainActivityCanteen {
 
             }
         });
+
+        ArtistListCanteen artistAdapter = new ArtistListCanteen(InterfaceOwnerCanteen.this, artists1);
+        //attaching adapter to the listview
+        listViewArtists3.setAdapter(artistAdapter);
     }
 }
