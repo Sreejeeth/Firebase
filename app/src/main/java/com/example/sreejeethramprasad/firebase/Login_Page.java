@@ -37,19 +37,19 @@ public class Login_Page extends AppCompatActivity {
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ed1.getText().toString().equals("student") &&
-                        ed2.getText().toString().equals("student")) {
+                if (ed1.getText().toString().equals("s") &&
+                        ed2.getText().toString().equals("s")) {
                     Toast.makeText(getApplicationContext(),
                             "Redirecting...", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(Login_Page.this,MainActivityCanteen.class);        //Create a bundle object
+                    Intent intent = new Intent(Login_Page.this,MainActivityone.class);        //Create a bundle object
                     startActivity(intent);
 
                 }
-                else if (ed1.getText().toString().equals("admin") &&
-                        ed2.getText().toString().equals("admin")) {
+                else if (ed1.getText().toString().equals("a") &&
+                        ed2.getText().toString().equals("a")) {
                     Toast.makeText(getApplicationContext(),
                             "Redirecting...", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(Login_Page.this,InterfaceOwnerCanteen.class);        //Create a bundle object
+                    Intent intent = new Intent(Login_Page.this,InterfaceOwnerone.class);        //Create a bundle object
                     startActivity(intent);
 
                 } else {

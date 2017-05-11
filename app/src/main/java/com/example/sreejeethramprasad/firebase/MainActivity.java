@@ -131,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
             //setting edittext to blank again
             editTextName.setText("");
 
+
             //displaying a success toast
             Toast.makeText(this, "Artist added", Toast.LENGTH_LONG).show();
         } else {
