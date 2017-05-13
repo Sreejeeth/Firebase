@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <TextView
+        android:text="Textview"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+        android:id="@+id/textViewNameone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <TextView
+        android:id="@+id/TextViewQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="qty"/>
+    <TextView
+        android:id="@+id/textViewPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/TextViewQuantity"
+        android:layout_alignEnd="@id/TextViewQuantity"
+        android:layout_alignRight="@id/textViewPrice"
+        android:text="price"
+        />
+
+</RelativeLayout>
