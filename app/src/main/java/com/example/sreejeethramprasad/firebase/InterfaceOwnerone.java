@@ -2,6 +2,9 @@ package com.example.sreejeethramprasad.firebase;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.text.TextUtils;
+import android.text.style.ParagraphStyle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -30,11 +33,12 @@ import static com.example.sreejeethramprasad.firebase.R.id.listViewArtistsone;
  */
 
 public class InterfaceOwnerone extends MainActivityone{
-   // ArrayList<Artisttwo> artiststwo;
+   public  static ArrayList<Artisttwo> artiststhree;
     // DatabaseReference databaseArtists;
     // ListView listViewArtists2;
     ListView listViewArtists7;
     Button button3;
+    TextView buttoninterface;
 int gobi=0;
     int parota=0;
     int masala_dosa=0;
@@ -52,7 +56,8 @@ int gobi=0;
 
             }
         });
-
+for(int i=0;i<artiststwo.size();i++)
+    artiststwo.get(i).setArtistQuantity(0);
 
         listViewArtists7 = (ListView) findViewById(R.id.listViewArtiststwo);
 
@@ -60,9 +65,9 @@ int gobi=0;
         databaseArtiststwo = FirebaseDatabase.getInstance().getReference("artiststwo");
         databaseArtiststhree = FirebaseDatabase.getInstance().getReference("artiststhree");
 
-        databaseArtiststhree.addValueEventListener(new ValueEventListener() {
+        databaseArtiststwo.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+           public void onDataChange(DataSnapshot dataSnapshot) {
 
                 //clearing the previous artist list
                 artiststwo.clear();
@@ -70,31 +75,53 @@ int gobi=0;
                 //iterating through all the nodes+
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     //getting artist
+
                     Artisttwo artist = postSnapshot.getValue(Artisttwo.class);
-                    //adding artist to the list
 
                     artiststwo.add(artist);
 
                 }
+//artiststhree=artiststwo;
 
 
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+recreate();
             }
         });
 
         ArtistListtwo artistAdapter = new ArtistListtwo(InterfaceOwnerone.this, artiststwo);
         //attaching adapter to the listview
         listViewArtists7.setAdapter(artistAdapter);
+       /* Bundle newBundle = new Bundle();
+        mBundle.putParcelable("listview", artistAdapter); // the key is the identifier for the parcelable
+        newIntent.putExtras(newBundle);
+        startActivity(newIntent);*/
+
     }
 public void summaryorder()
     {
         Intent intent=new Intent(InterfaceOwnerone.this,SummaryOrder.class);
+        Bundle bundle=new Bundle();
+        bundle.putSerializable("artiststwo",artiststwo);
+        intent.putExtras(bundle);
         startActivity(intent);
     }
+ /*   private ArrayList<Artisttwo> getModel(){
+        ArrayList<Artisttwo> list = new ArrayList<>();
+
+
+            Artisttwo model = new Artisttwo();
+            model.setArtistQuantity(model.getArtistQuantity());
+            model.setArtistName(model.getArtistName());
+            model.setArtistPrice(model.getArtistPrice());
+            model.setArtistId(model.getArtistId());
+            list.add(model);
+
+        return list;
+    }*/
 
     }
 

@@ -22,6 +22,8 @@ import android.widget.ArrayAdapter;
 
         import java.util.List;
 
+import static com.example.sreejeethramprasad.firebase.MainActivityone.artiststwo;
+
 /**
  * Created by Belal on 2/26/2017.
  */
@@ -40,6 +42,7 @@ public class ArtistListfour extends ArrayAdapter<Artisttwo> {
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
         View listViewItemone = inflater.inflate(R.layout.list_layout_four, null, true);
+        View listViewItemone1 = inflater.inflate(R.layout.list_layout_four, null, false);
 
         TextView textViewName = (TextView) listViewItemone.findViewById(R.id.textViewNameone);
         TextView textViewQuantity = (TextView) listViewItemone.findViewById(R.id.TextViewQuantity);
@@ -49,9 +52,19 @@ public class ArtistListfour extends ArrayAdapter<Artisttwo> {
 
         textViewName.setText(artist.getArtistName());
         //textViewGenre.setText(artist.getArtistGenre());
-        textViewPrice.setText(artist.getArtistPrice()+"");
-        textViewQuantity.setText(artist.getArtistQuantity()+"");
+        textViewPrice.setText(artist.getArtistPrice() + "");
+        textViewQuantity.setText(artist.getArtistQuantity() + "");
+
+
+        if (artists.get(position).getArtistQuantity() == 0) {
+
+            //listViewItemone.removeCallbacks()
+
+        }
+
 
         return listViewItemone;
+
+
     }
 }

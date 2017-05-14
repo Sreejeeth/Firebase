@@ -12,12 +12,12 @@ import java.io.Serializable;
  * Created by Belal on 2/26/2017.
  */
 @IgnoreExtraProperties
-public class Artisttwo extends Artistone {
+public class Artisttwo extends Artistone implements Serializable {
     private String artistId;
    private String artistName;
   //  private String artistGenre;
 
-private int  artistQuantity;
+public int  artistQuantity;
     private int artistPrice;
     public Artisttwo() {
         //this constructor is required
@@ -49,5 +49,17 @@ private int  artistQuantity;
     public void setArtistQuantity(int  artistQuantity) {
         this.artistQuantity=artistQuantity;
     }
+    public void setArtistId(String  artistId) {
+        this.artistId=artistId;
+    }
+
+    public void setArtistPrice(int  artistPrice) {
+        this.artistPrice=artistPrice;
+    }
+
+    public void setArtistName(String artistName) {
+        this.artistName=artistName;
+    }
+
 
 }

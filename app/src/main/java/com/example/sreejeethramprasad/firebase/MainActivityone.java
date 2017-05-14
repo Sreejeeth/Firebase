@@ -54,13 +54,13 @@ public class MainActivityone extends AppCompatActivity {
     Artisttwo artist2;
 
     public static ArrayList<Artisttwo> artiststwo;
-    ArrayList<Artistthree> artiststhree;
+ ArrayList<Artistthree> artiststhree;
 
-    //our database reference object
+//our database reference object
    DatabaseReference databaseArtistsfour;
     DatabaseReference databaseArtiststwo;
     DatabaseReference databaseArtiststhree;
-
+   public static DatabaseReference databaseArtistsqty;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +71,8 @@ public class MainActivityone extends AppCompatActivity {
 
         databaseArtiststwo = FirebaseDatabase.getInstance().getReference("artiststwo");
         databaseArtiststhree = FirebaseDatabase.getInstance().getReference("artiststhree");
-        databaseArtistsfour = FirebaseDatabase.getInstance().getReference("artistsfour");
+        databaseArtistsqty=FirebaseDatabase.getInstance().getReference("artistqty");
+    //    databaseArtistsfour = FirebaseDatabase.getInstance().getReference("artistsfour");
         //getting views
 
         editTextName = (EditText) findViewById(R.id.editTextName);
@@ -88,6 +89,8 @@ public class MainActivityone extends AppCompatActivity {
         //list to store artists
         artistsone = new ArrayList<>();
        artiststwo = new ArrayList<>();
+        for(int i=0;i<artiststwo.size();i++)
+            artiststwo.get(i).setArtistQuantity(0);
      //   artiststhree = new ArrayList<>();
 
         //adding an onclicklistener to button
@@ -127,6 +130,14 @@ startActivity(intent);
 
 
     }
+
+    public  static void count(String id,String name,int qty)
+    {
+        Artistqty artistqty = new Artistqty(id, name, qty);
+        databaseArtistsqty.child(id).setValue(artistqty);
+
+    }
+
     // Artisttwo artist2=artiststwo.get(i);
 //showUpdateDeleteDialog(artist2.getArtistId(), artist2.getArtistName());
     @Override
@@ -146,6 +157,7 @@ startActivity(intent);
                     Artistone artist = postSnapshot.getValue(Artistone.class);
                     //adding artist to the list
                     artistsone.add(artist);
+
                 }
 
             }
@@ -184,12 +196,14 @@ startActivity(intent);
             //creating an Artist Object
             Artistone artist = new Artistone(id, name, price);
 
+           Artistqty artistqty = new Artistqty(id, name, 0);
 
-             artist2=new Artisttwo(id,name,price,1);
+
+            // artist2=new Artisttwo(id,name,price,1);
 //Artistthree artist3=new Artistthree(id,name,artist2.getArtistQuantity());
             //Saving the Artist
             databaseArtiststwo.child(id).setValue(artist);
-            databaseArtiststhree.child(id).setValue(artist2);
+          databaseArtistsqty.child(id).setValue(artistqty);
           //  databaseArtistsfour.child(id).setValue(artist3);
 
             //setting edittext to blank again

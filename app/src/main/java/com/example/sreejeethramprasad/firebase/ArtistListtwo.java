@@ -73,6 +73,7 @@ public class ArtistListtwo extends ArrayAdapter<Artisttwo> {
 
         if (convertView == null) {
 
+
           //  databaseArtiststfour = FirebaseDatabase.getInstance().getReference("artistsfour");
            // String name = editTextName.getText().toString().trim();
             //  String genre = spinnerGenre.getSelectedItem().toString();
@@ -137,8 +138,9 @@ public class ArtistListtwo extends ArrayAdapter<Artisttwo> {
                 tv.setText(String.valueOf(number));
 
                 MainActivityone.artiststwo.get(pos).setArtistQuantity(number);
+            //    MainActivityone.artiststwo.set(pos,artists.get(pos)).setArtistQuantity(number);
 
-tv.setText(number+"");
+//tv.setText(number+"");
 
             }
         });
@@ -160,12 +162,14 @@ Artistthree artist3=new Artistthree(id,name,artist2.getArtistQuantity());
         }
 
 
+
     private class ViewHolder {
 
         protected Button buttonplus, buttonminus;
         private TextView textViewName, textViewQuantity,textViewPrice;
 
     }
+
 
 }
 // work on quantitypage thing
