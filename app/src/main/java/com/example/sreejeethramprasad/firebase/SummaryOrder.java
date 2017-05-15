@@ -27,15 +27,17 @@ import static com.example.sreejeethramprasad.firebase.R.id.listViewArtists;
 /**
  * Created by Vishvajith Ramprasad on 13-05-2017.
  */
-
 public class SummaryOrder extends InterfaceOwnerone {
     ArrayList<Artisttwo> artiststwotemp;
-   ArrayList<Artistqty>artistsqty=null;
+    ArrayList<Artistqty> artiststwotemp1;
+   ArrayList<Artistqty>artistsqty;
 
+ int i=0;
 static int flag=0;
     public static int masala;
     public static int gobi;
     DatabaseReference databaseArtistsqty;
+    DatabaseReference databaseArtiststemp;
     Button button;
     // ListView listViewArtists2;
     ListView listViewArtists9;
@@ -49,6 +51,10 @@ int quantity;
 
 
         databaseArtistsqty = FirebaseDatabase.getInstance().getReference("artistqty");
+        databaseArtiststemp = FirebaseDatabase.getInstance().getReference("artistemp");
+        artistsqty=new ArrayList<>();
+
+        databaseArtiststemp.removeValue();
         button = (Button) findViewById(R.id.buttonsummaryorder);
 
         Bundle bundleobject = getIntent().getExtras();
@@ -61,12 +67,96 @@ int quantity;
                 //   addqty1();
                 // Toast.makeText(getApplicationContext(), "Artist Updated", Toast.LENGTH_LONG).show();
 
+                for(int i=0;i<artiststwotemp.size();i++)
+                {
+
+                    Artistqty artist = new Artistqty(artiststwotemp.get(i).getArtistId(), artiststwotemp.get(i).getArtistName(), artiststwotemp.get(i).getArtistQuantity());
+                    databaseArtiststemp.child(artiststwotemp.get(i).getArtistId()).setValue(artist);
+                }
+
+
+
+
+                databaseArtiststemp.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        //clearing the previous artist list
+                        artiststwotemp1.clear();
+
+                        //iterating through all the nodes+
+                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                            //getting artist
+
+                            Artistqty artist = postSnapshot.getValue(Artistqty.class);
+
+                            artiststwotemp1.add(artist);
+                            Toast.makeText(getApplicationContext(),artistsqty.size()+ "count1111", Toast.LENGTH_LONG).show();
+
+                        }
+                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+
+                            for (i=0; i <artistsqty.size(); i++) {
+
+                                if (artistsqty.get(i).getArtistId().equals(postSnapshot.getValue(Artistqty.class).getArtistId())) {
+                                    artistsqty.get(i).setArtistQuantity(postSnapshot.getValue(Artistqty.class).getArtistQuantity() + artistsqty.get(i).getArtistQuantity());
+
+                                    Toast.makeText(getApplicationContext(), "if", Toast.LENGTH_LONG).show();
+                                    //  Toast.makeText(getApplicationContext(),artiststwotemp.get(i).getArtistQuantity()+ "", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(),artistsqty.get(i).getArtistId()+ "if1", Toast.LENGTH_LONG).show();
+
+                                    Toast.makeText(getApplicationContext(), postSnapshot.getValue(Artistqty.class).getArtistId() +"if2", Toast.LENGTH_LONG).show();
+                                    //  Toast.makeText(getApplicationContext(), artiststwo.get(i).getArtistId()+ "", Toast.LENGTH_LONG).show();
+
+
+                                    Artistqty artistqty = new Artistqty(artistsqty.get(i).getArtistId(), artistsqty.get(i).getArtistName(), artistsqty.get(i).getArtistQuantity());
+                                    databaseArtistsqty.child(artistsqty.get(i).getArtistId()).setValue(artistqty);
+
+
+
+                                }
+
+                                else
+                                {
+
+                                    Toast.makeText(getApplicationContext(), "else", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(),artistsqty.get(i).getArtistId()+ "else1", Toast.LENGTH_LONG).show();
+
+                                    Toast.makeText(getApplicationContext(), postSnapshot.getValue(Artistqty.class).getArtistId() +"else2", Toast.LENGTH_LONG).show();
+                                    Artistqty artistqty = new Artistqty(artistsqty.get(i).getArtistId(), artistsqty.get(i).getArtistName(), artistsqty.get(i).getArtistQuantity());
+                                    databaseArtistsqty.child(artistsqty.get(i).getArtistId()).setValue(artistqty);
+
+
+                                }
+                                //  flag=1;
+                                //x Toast.makeText(getApplicationContext(), artiststwotemp.get(i).getArtistId() + "", Toast.LENGTH_LONG).show();
+                            }
+
+
+                            //  Toast.makeText(getApplicationContext(), postSnapshot.getValue(Artistqty.class).getArtistId()+"", Toast.LENGTH_LONG).show();
+                        }
+
+
+
+//artiststhree=artiststwo;
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        recreate();
+                    }
+                });
 
             }
         });
         // Name = (TextView) findViewById(R.id.temp);
         //  Quantity= (TextView) findViewById(R.id.TextViewQuantity);
         //  Price= (TextView) findViewById(R.id.textViewPrice);
+
+        artiststwotemp1=new ArrayList<>();
+
 
 
         ArtistListfour artistAdapter = new ArtistListfour(SummaryOrder.this, artiststwotemp);
@@ -75,7 +165,7 @@ int quantity;
             if (artiststwotemp.get(i).getArtistQuantity() == 0) {
 
                 artistAdapter.remove(artiststwotemp.get(i));
-               // artiststwotemp.remove(artiststwotemp.get(i));
+                // artiststwotemp.remove(artiststwotemp.get(i));
 
             }
         }
@@ -83,69 +173,92 @@ int quantity;
             if (artiststwotemp.get(i).getArtistQuantity() == 0) {
 
                 artistAdapter.remove(artiststwotemp.get(i));
-              //  artiststwotemp.remove(artiststwotemp.get(i));
+                //  artiststwotemp.remove(artiststwotemp.get(i));
             }
         }
         for (int i = 0; i < artiststwotemp.size(); i++) {
             if (artiststwotemp.get(i).getArtistQuantity() == 0) {
 
                 artistAdapter.remove(artiststwotemp.get(i));
-               // artiststwotemp.remove(artiststwotemp.get(i));
+                // artiststwotemp.remove(artiststwotemp.get(i));
             }
         }
 
-artistsqty=new ArrayList<>();
-
-            databaseArtistsqty.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-
-                    //clearing the previous artist list
-                    artistsqty.clear();
-
-                    //iterating through all the nodes+
-                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                        //getting artist
-
-                        Artistqty artist = postSnapshot.getValue(Artistqty.class);
-
-                        artistsqty.add(artist);
 
 
+        databaseArtistsqty.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
-                    }
+                //clearing the previous artist list
+                artistsqty.clear();
 
-                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                        for (int i = 0; i < artistsqty.size(); i++) {
+                //iterating through all the nodes+
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    //getting artist
 
-                            if (artiststwotemp.get(i).getArtistId().equals(postSnapshot.getValue(Artistqty.class).getArtistId())) {
-                                artistsqty.get(i).setArtistQuantity(postSnapshot.getValue(Artistqty.class).getArtistQuantity() + artiststwotemp.get(i).getArtistQuantity());
-                                Artistqty artistqty = new Artistqty(artistsqty.get(i).getArtistId(), artistsqty.get(i).getArtistName(), artistsqty.get(i).getArtistQuantity());
-                                databaseArtistsqty.child(artistsqty.get(i).getArtistId()).setValue(artistqty);
+                    Artistqty artist = postSnapshot.getValue(Artistqty.class);
+
+                    artistsqty.add(artist);
+                    Toast.makeText(getApplicationContext(),artistsqty.size()+ "count", Toast.LENGTH_LONG).show();
+
+                }
+
+            /*  for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+
+                    for (i=0; i <artiststwotemp.size(); i++) {
+
+                        if (artiststwotemp.get(i).getArtistId().equals(postSnapshot.getValue(Artistqty.class).getArtistId())) {
+                            artistsqty.get(i).setArtistQuantity(postSnapshot.getValue(Artistqty.class).getArtistQuantity() + artiststwotemp.get(i).getArtistQuantity());
+
+                            Toast.makeText(getApplicationContext(), "if", Toast.LENGTH_LONG).show();
+                          //  Toast.makeText(getApplicationContext(),artiststwotemp.get(i).getArtistQuantity()+ "", Toast.LENGTH_LONG).show();
+                           Toast.makeText(getApplicationContext(),artistsqty.get(i).getArtistId()+ "if1", Toast.LENGTH_LONG).show();
+
+                            Toast.makeText(getApplicationContext(), postSnapshot.getValue(Artistqty.class).getArtistId() +"if2", Toast.LENGTH_LONG).show();
+                          //  Toast.makeText(getApplicationContext(), artiststwo.get(i).getArtistId()+ "", Toast.LENGTH_LONG).show();
 
 
-                            }
-                            //else
-                            //  flag=1;
-                            Toast.makeText(getApplicationContext(), artiststwotemp.get(i).getArtistId() + "", Toast.LENGTH_LONG).show();
+                            Artistqty artistqty = new Artistqty(artistsqty.get(i).getArtistId(), artistsqty.get(i).getArtistName(), artistsqty.get(i).getArtistQuantity());
+                            databaseArtistsqty.child(artistsqty.get(i).getArtistId()).setValue(artistqty);
+
+
+
                         }
 
+                        else
+                        {
 
-                         Toast.makeText(getApplicationContext(), postSnapshot.getValue(Artistqty.class).getArtistId()+"", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "else", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(),artistsqty.get(i).getArtistId()+ "else1", Toast.LENGTH_LONG).show();
+
+                            Toast.makeText(getApplicationContext(), postSnapshot.getValue(Artistqty.class).getArtistId() +"else2", Toast.LENGTH_LONG).show();
+                            Artistqty artistqty = new Artistqty(artistsqty.get(i).getArtistId(), artistsqty.get(i).getArtistName(), artistsqty.get(i).getArtistQuantity());
+                            databaseArtistsqty.child(artistsqty.get(i).getArtistId()).setValue(artistqty);
+
+
+                        }
+                        //  flag=1;
+                        //x Toast.makeText(getApplicationContext(), artiststwotemp.get(i).getArtistId() + "", Toast.LENGTH_LONG).show();
                     }
+
+
+                //  Toast.makeText(getApplicationContext(), postSnapshot.getValue(Artistqty.class).getArtistId()+"", Toast.LENGTH_LONG).show();
+            }*/
 
 
 
 //artiststhree=artiststwo;
 
 
-                }
+            }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    recreate();
-                }
-            });
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                recreate();
+            }
+        });
+
 
 
 
@@ -157,12 +270,8 @@ artistsqty=new ArrayList<>();
 
 
 
-
-
-    //databaseArtistsqty = FirebaseDatabase.getInstance().getReference("artistqty").child();
-
-
     }
+
 
 
 

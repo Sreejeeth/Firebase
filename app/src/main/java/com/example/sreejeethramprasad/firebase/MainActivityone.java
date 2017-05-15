@@ -89,6 +89,7 @@ public class MainActivityone extends AppCompatActivity {
         //list to store artists
         artistsone = new ArrayList<>();
        artiststwo = new ArrayList<>();
+
         for(int i=0;i<artiststwo.size();i++)
             artiststwo.get(i).setArtistQuantity(0);
      //   artiststhree = new ArrayList<>();
