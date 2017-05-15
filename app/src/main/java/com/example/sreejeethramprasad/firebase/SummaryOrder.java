@@ -54,7 +54,7 @@ int quantity;
         databaseArtiststemp = FirebaseDatabase.getInstance().getReference("artistemp");
         artistsqty=new ArrayList<>();
 
-        databaseArtiststemp.removeValue();
+        //databaseArtiststemp.removeValue();
         button = (Button) findViewById(R.id.buttonsummaryorder);
 
         Bundle bundleobject = getIntent().getExtras();
@@ -91,7 +91,7 @@ int quantity;
                             Artistqty artist = postSnapshot.getValue(Artistqty.class);
 
                             artiststwotemp1.add(artist);
-                            Toast.makeText(getApplicationContext(),artistsqty.size()+ "count1111", Toast.LENGTH_LONG).show();
+                           // Toast.makeText(getApplicationContext(),artistsqty.size()+ "count1111", Toast.LENGTH_LONG).show();
 
                         }
                         for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
@@ -101,17 +101,17 @@ int quantity;
                                 if (artistsqty.get(i).getArtistId().equals(postSnapshot.getValue(Artistqty.class).getArtistId())) {
                                     artistsqty.get(i).setArtistQuantity(postSnapshot.getValue(Artistqty.class).getArtistQuantity() + artistsqty.get(i).getArtistQuantity());
 
-                                    Toast.makeText(getApplicationContext(), "if", Toast.LENGTH_LONG).show();
+                                //    Toast.makeText(getApplicationContext(), "if", Toast.LENGTH_LONG).show();
                                     //  Toast.makeText(getApplicationContext(),artiststwotemp.get(i).getArtistQuantity()+ "", Toast.LENGTH_LONG).show();
-                                    Toast.makeText(getApplicationContext(),artistsqty.get(i).getArtistId()+ "if1", Toast.LENGTH_LONG).show();
+                                  //  Toast.makeText(getApplicationContext(),artistsqty.get(i).getArtistId()+ "if1", Toast.LENGTH_LONG).show();
 
-                                    Toast.makeText(getApplicationContext(), postSnapshot.getValue(Artistqty.class).getArtistId() +"if2", Toast.LENGTH_LONG).show();
+                                  //  Toast.makeText(getApplicationContext(), postSnapshot.getValue(Artistqty.class).getArtistId() +"if2", Toast.LENGTH_LONG).show();
                                     //  Toast.makeText(getApplicationContext(), artiststwo.get(i).getArtistId()+ "", Toast.LENGTH_LONG).show();
 
 
                                     Artistqty artistqty = new Artistqty(artistsqty.get(i).getArtistId(), artistsqty.get(i).getArtistName(), artistsqty.get(i).getArtistQuantity());
                                     databaseArtistsqty.child(artistsqty.get(i).getArtistId()).setValue(artistqty);
-
+                                    databaseArtiststemp.removeValue();
 
 
                                 }
@@ -119,13 +119,14 @@ int quantity;
                                 else
                                 {
 
-                                    Toast.makeText(getApplicationContext(), "else", Toast.LENGTH_LONG).show();
-                                    Toast.makeText(getApplicationContext(),artistsqty.get(i).getArtistId()+ "else1", Toast.LENGTH_LONG).show();
+                                  //  Toast.makeText(getApplicationContext(), "else", Toast.LENGTH_LONG).show();
+                                  //  Toast.makeText(getApplicationContext(),artistsqty.get(i).getArtistId()+ "else1", Toast.LENGTH_LONG).show();
 
-                                    Toast.makeText(getApplicationContext(), postSnapshot.getValue(Artistqty.class).getArtistId() +"else2", Toast.LENGTH_LONG).show();
+                                   // Toast.makeText(getApplicationContext(), postSnapshot.getValue(Artistqty.class).getArtistId() +"else2", Toast.LENGTH_LONG).show();
                                     Artistqty artistqty = new Artistqty(artistsqty.get(i).getArtistId(), artistsqty.get(i).getArtistName(), artistsqty.get(i).getArtistQuantity());
-                                    databaseArtistsqty.child(artistsqty.get(i).getArtistId()).setValue(artistqty);
 
+                                    databaseArtistsqty.child(artistsqty.get(i).getArtistId()).setValue(artistqty);
+                                    databaseArtiststemp.removeValue();
 
                                 }
                                 //  flag=1;
@@ -137,7 +138,8 @@ int quantity;
                         }
 
 
-
+                        Toast.makeText(getApplicationContext(), "Order successful!", Toast.LENGTH_LONG).show();
+                        recreate();
 //artiststhree=artiststwo;
 
 
@@ -145,9 +147,11 @@ int quantity;
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
+                        Toast.makeText(getApplicationContext(), "Order unsuccessful!", Toast.LENGTH_LONG).show();
                         recreate();
                     }
                 });
+
 
             }
         });
@@ -200,7 +204,7 @@ int quantity;
                     Artistqty artist = postSnapshot.getValue(Artistqty.class);
 
                     artistsqty.add(artist);
-                    Toast.makeText(getApplicationContext(),artistsqty.size()+ "count", Toast.LENGTH_LONG).show();
+                   // Toast.makeText(getApplicationContext(),artistsqty.size()+ "count", Toast.LENGTH_LONG).show();
 
                 }
 
