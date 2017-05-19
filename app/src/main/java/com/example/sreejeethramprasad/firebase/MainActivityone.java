@@ -117,17 +117,17 @@ public class MainActivityone extends AppCompatActivity {
                return true;
            }
        });
-      //  button.setOnClickListener(new View.OnClickListener() {
-           // @Override
-           // public void onClick(View view) {
-                //calling the method addArtist()
-                /*the method is defined below
-                this method is actually performing the write operation
+       button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               //calling the method addArtist()
+                //the method is defined below
+                //this method is actually performing the write operation
 
-               Intent intent = new Intent(MainActivityone.this, Quantitypage.class);
+               Intent intent = new Intent(MainActivityone.this, Canteenownerpage2.class);
 startActivity(intent);
             }
-        });*/
+        });
 
 
     }

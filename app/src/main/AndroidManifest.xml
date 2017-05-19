@@ -22,6 +22,7 @@
 <activity android:name=".InterfaceOwnerone"/>
 
 <activity android:name=".SummaryOrder"/>
+        <activity android:name=".Canteenownerpage2"/>
     </application>
 
 </manifest>
